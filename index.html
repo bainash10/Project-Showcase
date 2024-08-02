@@ -7,10 +7,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    
     <div class="container">
         <header>
             <h1>GitHub Repo Explorer</h1>
             <button id="theme-toggle">Toggle Theme</button>
+            <div id="total-repos">Total Repositories: <span id="total-repos-count">0</span></div>
             <input type="text" id="search" placeholder="Search projects...">
             <select id="sort">
                 <option value="recent">Recently Added</option>
@@ -18,9 +20,13 @@
                 <option value="techstack">By Tech Stack</option>
             </select>
         </header>
+       
         <div class="categories" id="categories"></div>
         <div class="repo-container" id="repo-container"></div>
+        <button id="load-more">Load More</button>
+        <p id="all-loaded" class="hidden">Everything is loaded</p>
+        
     </div>
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
