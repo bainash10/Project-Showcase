@@ -3,22 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub Repo Explorer</title>
+    <title>Projects by Nischal Baidar</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="fav.jpg" type="image/x-icon"> 
+
 </head>
 <body>
     
     <div class="container">
         <header>
-            <h1>GitHub Repo Explorer</h1>
-            <button id="theme-toggle">Toggle Theme</button>
-            <div id="total-repos">Total Repositories: <span id="total-repos-count">0</span></div>
-            <input type="text" id="search" placeholder="Search projects...">
-            <select id="sort">
-                <option value="recent">Recently Added</option>
-                <option value="alphabetical">Alphabetically</option>
-                
-            </select>
+            <h1>Projects by Nischal Baidar</h1>
+           
+            
+            <div id="search-sort-container">
+                <div id="total-repos">Total Projects: <span id="total-repos-count">0</span></div>
+                <input type="text" id="search" placeholder="Search projects...">
+                <select id="sort">
+                    <option value="recent">Recently Added</option>
+                    <option value="alphabetical">Alphabetically</option>
+                </select>
+                <button id="theme-toggle" aria-label="Toggle Theme">
+                    <i id="theme-icon" class="fa-solid fa-sun"></i>
+                </button>
+            </div>
+            
+            
+            
         </header>
        
         <div id="language-filters" class="filters">
@@ -32,6 +43,11 @@
         <p id="all-loaded" class="hidden">Everything is loaded</p>
         
     </div>
+
+    <footer>
+        <p>&copy; Nischal Baidar. All rights reserved.</p>
+    </footer>
+
     <script type="module" src="script.js"></script>
 </body>
 </html>

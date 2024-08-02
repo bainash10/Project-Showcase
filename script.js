@@ -17,14 +17,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const batchSize = 6;
     let majorLanguages = [];
 
-    themeToggle.addEventListener('click', () => {
+    // Set default sort option to "recent"
+    sortSelect.value = 'recent';
+    
+    document.getElementById('theme-toggle').addEventListener('click', function() {
         document.body.classList.toggle('dark');
+        const icon = document.getElementById('theme-icon');
+        if (document.body.classList.contains('dark')) {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        } else {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        }
     });
+    
 
     searchInput.addEventListener('input', () => {
         const searchTerm = searchInput.value.toLowerCase();
         filteredRepos = allRepos.filter(repo => repo.name.toLowerCase().includes(searchTerm));
-        displayRepos(filteredRepos);
+        sortAndDisplayRepos(sortSelect.value); // Ensure sorting is applied
     });
 
     sortSelect.addEventListener('change', () => {
@@ -42,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const repoLanguages = Object.keys(repo.languages);
                 return selectedLanguages.every(lang => repoLanguages.includes(lang));
             });
-            displayRepos(filteredRepos);
+            sortAndDisplayRepos(sortSelect.value); // Ensure sorting is applied
         }
     });
 
@@ -70,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }));
             determineMajorLanguages(allRepos);
             filteredRepos = allRepos;
-            displayRepos(filteredRepos);
+            sortAndDisplayRepos(sortSelect.value); // Ensure sorting is applied
             displayLanguages(majorLanguages);
             updateTotalReposCount(allRepos.length);
         } catch (error) {

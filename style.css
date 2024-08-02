@@ -6,6 +6,9 @@ body {
     background-color: #f0f0f0;
     color: #333;
     transition: background-color 0.3s, color 0.3s;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 body.dark {
@@ -15,9 +18,12 @@ body.dark {
 
 /* Container styles */
 .container {
-    max-width: 1200px;
+    max-width: 70%; /* Change to full width */
+    width: 60%; /* Set a width to ensure some margin */
     margin: 0 auto;
     padding: 20px;
+    box-sizing: border-box; 
+    height: auto;/* Ensure padding is included in width */
 }
 
 /* Header styles */
@@ -74,6 +80,7 @@ header {
     cursor: pointer;
 }
 
+/* Repository container styles */
 .repo-container {
     display: flex;
     flex-wrap: wrap;
@@ -81,24 +88,27 @@ header {
     gap: 20px;
 }
 
+/* Repository box styles */
 .repo {
     background-color: rgba(255, 255, 255, 0.9); /* Glass effect */
     backdrop-filter: blur(10px);
-    padding: 10px;
+    padding: 20px; /* Increased padding for larger content */
     border: 1px solid rgba(0, 0, 0, 0.1); /* Slight border */
-    border-radius: 10px;
-    width: 30%;
+    border-radius: 12px; /* Slightly increased border-radius for a more rounded look */
+    width: calc(33.333% - 20px); /* Adjust width to ensure it fits within the container */
     text-align: center;
     box-sizing: border-box;
     transition: background-color 0.3s;
 }
+
+
 
 .repo:hover {
     background-color: rgba(240, 240, 240, 0.9); /* Slightly darker glass effect on hover */
 }
 
 .repo h2 {
-    font-size: 1.5em;
+    font-size: 1.6em;
     margin: 10px 0;
 }
 
@@ -163,21 +173,46 @@ a {
     margin-left: 5px;
 }
 
-/* Toggle theme button */
+/* Theme toggle button */
 #theme-toggle {
-    background-color: #007bff;
-    color: white;
+    background-color: transparent;
     border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-family: Arial, sans-serif;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
+    font-size: 24px; /* Increase size for better visibility */
+    transition: color 0.3s;
 }
 
-#theme-toggle:hover {
-    background-color: #0056b3;
+/* Icon color adjustments */
+#theme-toggle .fa-sun,
+#theme-toggle .fa-moon {
+    color: inherit; /* Ensure icon inherits the button color */
+}
+
+/* Light mode icon color */
+body:not(.dark) #theme-toggle .fa-sun {
+    color: #007bff; /* Dark color for the sun icon in light mode */
+}
+
+body:not(.dark) #theme-toggle .fa-moon {
+    color: #333; /* Dark color for the moon icon in light mode */
+    display: none; /* Hide moon icon in light mode */
+}
+
+/* Dark mode icon color */
+body.dark #theme-toggle .fa-sun {
+    color: #fff; /* White color for the sun icon in dark mode */
+    display: none; /* Hide sun icon in dark mode */
+}
+
+body.dark #theme-toggle .fa-moon {
+    color: #fff; /* White color for the moon icon in dark mode */
+    display: inline; /* Show moon icon in dark mode */
+}
+
+/* Hover and focus effects */
+#theme-toggle:hover .fa-sun,
+#theme-toggle:hover .fa-moon {
+    color: #0056b3; /* Darker color on hover */
 }
 
 #theme-toggle:focus {
@@ -185,10 +220,9 @@ a {
     box-shadow: 0 0 0 3px rgba(38, 143, 255, 0.5);
 }
 
-#theme-toggle:active {
-    transform: scale(0.98);
-}
 
+
+/* General checkbox styles */
 .language-checkbox {
     margin: 5px 0;
     padding: 5px;
@@ -197,13 +231,75 @@ a {
     display: flex;
     align-items: center;
     font-family: Arial, sans-serif;
+    transition: border-color 0.3s, background-color 0.3s;
 }
 
+/* Checkbox input styling */
 .language-checkbox input[type="checkbox"] {
     margin-right: 10px;
 }
 
+/* Label styling */
 .language-checkbox label {
     font-size: 15px;
+}
+
+/* Light mode specific styles */
+body:not(.dark) .language-checkbox {
+    border-color: #ccc;
+    background-color: #fff; /* Light background for light mode */
+}
+
+body:not(.dark) .language-checkbox label {
+    color: #333; /* Dark text color for better visibility in light mode */
+}
+
+/* Dark mode specific styles */
+body.dark .language-checkbox {
+    border-color: #444;
+    background-color: #333; /* Darker background for dark mode */
+}
+
+body.dark .language-checkbox label {
+    color: #ddd; /* Light text color for better visibility in dark mode */
+}
+
+/* Search, sort, and total repos container */
+#search-sort-container {
+    display: flex;
+    align-items: center; /* Vertically center items */
+    justify-content: space-between; /* Space between items */
+    gap: 15px; /* Space between elements */
+    margin: 10px 0;
+}
+
+#total-repos {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
     color: #333;
+}
+
+#search {
+    flex: 1; /* Grow to fill available space */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-width: 300px; /* Optional: Limit max width */
+}
+
+#sort {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px; /* Set a fixed width for the dropdown */
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    position: relative;
+    bottom: 0;
+    width: 100%;
 }
