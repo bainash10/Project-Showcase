@@ -21,7 +21,7 @@ body.dark {
     max-width: 70%; /* Change to full width */
     width: 60%; /* Set a width to ensure some margin */
     margin: 0 auto;
-    padding: 20px;
+    padding: 10px;
     box-sizing: border-box; 
     height: auto;/* Ensure padding is included in width */
 }
@@ -108,7 +108,7 @@ header {
 }
 
 .repo h2 {
-    font-size: 1.6em;
+    font-size: 1.8em;
     margin: 10px 0;
 }
 
@@ -151,6 +151,7 @@ a {
     text-decoration: underline;
     font-weight: bold;
     font-style: italic;
+    font-size: larger;
 }
 
 /* Total repositories section */
@@ -161,16 +162,18 @@ a {
     padding: 10px 15px;
     margin: 20px 0;
     font-family: Arial, sans-serif;
-    font-size: 16px;
+    font-size: 20px;
     color: #333;
     display: flex;
     align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #total-repos-count {
     font-weight: bold;
-    color: #007bff;
+    color: #0eac3b;
     margin-left: 5px;
+    font-size:larger;
 }
 
 /* Theme toggle button */
@@ -190,7 +193,7 @@ a {
 
 /* Light mode icon color */
 body:not(.dark) #theme-toggle .fa-sun {
-    color: #007bff; /* Dark color for the sun icon in light mode */
+    color: #333; /* Dark color for the sun icon in light mode */
 }
 
 body:not(.dark) #theme-toggle .fa-moon {
@@ -232,6 +235,17 @@ body.dark #theme-toggle .fa-moon {
     align-items: center;
     font-family: Arial, sans-serif;
     transition: border-color 0.3s, background-color 0.3s;
+}
+h1 {
+    /* font-family: 'GitHub', Arial, sans-serif; Use GitHub font if available, fallback to Arial */
+    font-size: 3em; /* Increase font size */
+    font-weight: 700; /* Bold weight */
+    margin: 0 0 20px 0; /* Adjust margin as needed */
+    color: #333; /* Dark color for good readability */
+}
+
+h2{
+    font-size: 1.5em;
 }
 
 /* Checkbox input styling */
@@ -305,27 +319,24 @@ footer {
 }
 
 /* Tech Stacks color */
-.tech-stacks {
-    color: #4CAF50; /* Green color */
-    font-weight: bold;
-}
 
 /* Commits color */
 .commits {
-   
+    font-size: 16px;
     font-weight: bold;
 }
 
 /* Created at color */
+.tech-stacks {
+    color: #0eac3b; /* Neutral gray for a minimal look */
+    font-weight: bold;
+    font-size: 18px;
+    font-family: sans-serif;
+}
+
 .created-at {
-    color: #a46a58; /* Orange color */
+    
     font-weight: bold;
 }
 
-/* Description styling */
-.description {
-    font-weight: bold;
-    font-family: 'Arial', sans-serif; /* Change font as needed */
-    font-size: 16px;
-    margin-top: 8px;
-}
+

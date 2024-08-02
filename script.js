@@ -176,10 +176,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const repoName = document.createElement('h2');
             repoName.textContent = repo.name;
     
-            const techStacks = document.createElement('p');
-            techStacks.classList.add('tech-stacks');
-            techStacks.textContent = `Tech Stacks: ${Object.keys(repo.languages).join(', ') || 'Unknown'}`;
-    
             const commitInfo = document.createElement('p');
             commitInfo.classList.add('commits');
             commitInfo.textContent = `Commits: ${repo.commitsCount}`;
@@ -188,6 +184,10 @@ document.addEventListener('DOMContentLoaded', () => {
             repoDetails.classList.add('created-at');
             repoDetails.textContent = `Created at: ${new Date(repo.created_at).toLocaleDateString()}`;
     
+            const techStacks = document.createElement('p');
+            techStacks.classList.add('tech-stacks');
+            techStacks.textContent = `Tech Stacks: ${Object.keys(repo.languages).join(', ') || 'Unknown'}`;
+    
             const sourceCode = document.createElement('div');
             sourceCode.classList.add('source-code');
             sourceCode.innerHTML = `
@@ -195,9 +195,9 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
     
             repoDiv.appendChild(repoName);
-            repoDiv.appendChild(techStacks);
-            repoDiv.appendChild(commitInfo);
-            repoDiv.appendChild(repoDetails);
+            repoDiv.appendChild(commitInfo); // Commit info first
+            repoDiv.appendChild(repoDetails); // Created at second
+            repoDiv.appendChild(techStacks); // Tech stacks third
             repoDiv.appendChild(sourceCode);
             repoContainer.appendChild(repoDiv);
         });
@@ -211,6 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
             allLoadedText.classList.add('hidden');
         }
     }
+    
     
 
     function updateTotalReposCount(count) {
