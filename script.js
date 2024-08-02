@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentBatch = 0;
     const batchSize = 6;
     let majorLanguages = [];
+    let languageCounts = {}; // Track language counts
 
     // Set default sort option to "recent"
     sortSelect.value = 'recent';
@@ -32,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
-
     searchInput.addEventListener('input', () => {
         const searchTerm = searchInput.value.toLowerCase();
         filteredRepos = allRepos.filter(repo => repo.name.toLowerCase().includes(searchTerm));
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function determineMajorLanguages(repos) {
-        const languageCounts = {};
+        languageCounts = {}; // Reset language counts
 
         repos.forEach(repo => {
             const repoLanguages = Object.keys(repo.languages);
@@ -142,11 +142,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function displayLanguages(majorLanguages) {
         languagesContainer.innerHTML = '';
         majorLanguages.forEach(language => {
+            const count = languageCounts[language] || 0; // Get the count or default to 0
             const languageDiv = document.createElement('div');
             languageDiv.classList.add('language-checkbox');
             languageDiv.innerHTML = `
                 <input type="checkbox" id="${language}" value="${language}">
-                <label for="${language}">${language}</label>
+                <label for="${language}">${language} (${count})</label>
             `;
             languagesContainer.appendChild(languageDiv);
         });
@@ -167,30 +168,33 @@ document.addEventListener('DOMContentLoaded', () => {
         const startIndex = currentBatch * batchSize;
         const endIndex = Math.min(startIndex + batchSize, filteredRepos.length);
         const nextBatch = filteredRepos.slice(startIndex, endIndex);
-
+    
         nextBatch.forEach(repo => {
             const repoDiv = document.createElement('div');
             repoDiv.classList.add('repo');
-
+    
             const repoName = document.createElement('h2');
             repoName.textContent = repo.name;
-
+    
             const techStacks = document.createElement('p');
+            techStacks.classList.add('tech-stacks');
             techStacks.textContent = `Tech Stacks: ${Object.keys(repo.languages).join(', ') || 'Unknown'}`;
-
+    
             const commitInfo = document.createElement('p');
+            commitInfo.classList.add('commits');
             commitInfo.textContent = `Commits: ${repo.commitsCount}`;
-
+    
             const repoDetails = document.createElement('p');
+            repoDetails.classList.add('created-at');
             repoDetails.textContent = `Created at: ${new Date(repo.created_at).toLocaleDateString()}`;
-
+    
             const sourceCode = document.createElement('div');
             sourceCode.classList.add('source-code');
             sourceCode.innerHTML = `
-                <p>${repo.description || 'No description available'}</p>
+                <p class="description">${repo.description || 'No description available'}</p>
                 <a href="${repo.html_url}" target="_blank">View Source Code</a>
             `;
-
+    
             repoDiv.appendChild(repoName);
             repoDiv.appendChild(techStacks);
             repoDiv.appendChild(commitInfo);
@@ -198,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
             repoDiv.appendChild(sourceCode);
             repoContainer.appendChild(repoDiv);
         });
-
+    
         currentBatch++;
         if (endIndex >= filteredRepos.length) {
             loadMoreButton.classList.add('hidden');

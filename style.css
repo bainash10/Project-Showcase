@@ -303,3 +303,29 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+/* Tech Stacks color */
+.tech-stacks {
+    color: #4CAF50; /* Green color */
+    font-weight: bold;
+}
+
+/* Commits color */
+.commits {
+    color: #2196F3; /* Blue color */
+    font-weight: bold;
+}
+
+/* Created at color */
+.created-at {
+    color: #a46a58; /* Orange color */
+    font-weight: bold;
+}
+
+/* Description styling */
+.description {
+    font-weight: bold;
+    font-family: 'Arial', sans-serif; /* Change font as needed */
+    font-size: 16px;
+    margin-top: 8px;
+}
