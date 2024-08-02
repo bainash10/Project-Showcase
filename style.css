@@ -1,3 +1,4 @@
+/* General body styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -12,24 +13,51 @@ body.dark {
     color: #ffffff;
 }
 
+/* Container styles */
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
 
+/* Header styles */
 header {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 20px;
 }
 
+/* Search and sort styles */
 #search, #sort {
     margin: 10px 0;
     padding: 10px;
     width: 300px;
 }
 
+/* Language filter styles */
+.filters {
+    margin-bottom: 20px;
+}
+
+.filters h2 {
+    margin: 0 0 10px 0;
+}
+
+#languages {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.language-checkbox {
+    margin-right: 15px;
+}
+
+.language-checkbox input {
+    margin-right: 5px;
+}
+
+/* Category and repository container styles */
 .categories {
     display: flex;
     flex-wrap: wrap;
@@ -54,10 +82,11 @@ header {
 }
 
 .repo {
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.9); /* Glass effect */
+    backdrop-filter: blur(10px);
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Slight border */
+    border-radius: 10px;
     width: 30%;
     text-align: center;
     box-sizing: border-box;
@@ -65,7 +94,7 @@ header {
 }
 
 .repo:hover {
-    background-color: #f0f0f0;
+    background-color: rgba(240, 240, 240, 0.9); /* Slightly darker glass effect on hover */
 }
 
 .repo h2 {
@@ -77,6 +106,7 @@ header {
     margin-top: 10px;
 }
 
+/* Button styles */
 #load-more {
     display: block;
     margin: 20px auto;
@@ -97,64 +127,64 @@ header {
     display: none;
 }
 
+/* Dark mode styles */
 body.dark .repo {
-    background-color: #1e1e1e;
-    
+    background-color: rgba(30, 30, 30, 0.9);
 }
+
 body.dark a {
-    color: #fff; /* Dark mode color (white) */
+    color: #fff;
 }
 
 a {
-    color: #007bff; /* Light mode color (blue) */
-    text-decoration: underline; /* Underline the link */
-    font-weight: bold; /* Make the link bold */
-    font-style: italic; /* Make the link italic */
+    color: #007bff;
+    text-decoration: underline;
+    font-weight: bold;
+    font-style: italic;
 }
 
-/* General container style for the total repositories section */
+/* Total repositories section */
 #total-repos {
-    background-color: #f4f4f4; /* Light grey background */
-    border: 1px solid #ddd; /* Light border */
-    border-radius: 8px; /* Rounded corners */
-    padding: 10px 15px; /* Padding around the content */
-    margin: 20px 0; /* Margin to separate from other elements */
-    font-family: Arial, sans-serif; /* Font for text */
-    font-size: 16px; /* Font size for the text */
-    color: #333; /* Text color */
-    display: flex; /* Flexbox layout for alignment */
-    align-items: center; /* Center vertically */
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #333;
+    display: flex;
+    align-items: center;
 }
 
-/* Style for the count span */
 #total-repos-count {
-    font-weight: bold; /* Bold font for emphasis */
-    color: #007bff; /* Blue color to stand out */
-    margin-left: 5px; /* Space between text and count */
+    font-weight: bold;
+    color: #007bff;
+    margin-left: 5px;
 }
 
-/* Style for the Toggle Theme button */
+/* Toggle theme button */
 #theme-toggle {
-    background-color: #007bff; /* Blue background */
-    color: white; /* White text */
-    border: none; /* No border */
-    border-radius: 5px; /* Slightly rounded corners */
-    padding: 10px 20px; /* Padding around the text */
-    font-size: 16px; /* Font size for the text */
-    font-family: Arial, sans-serif; /* Font for text */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s, transform 0.2s; /* Smooth transitions for color and scale */
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 #theme-toggle:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #0056b3;
 }
 
 #theme-toggle:focus {
-    outline: none; /* Remove default focus outline */
-    box-shadow: 0 0 0 3px rgba(38, 143, 255, 0.5); /* Custom focus outline */
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(38, 143, 255, 0.5);
 }
 
 #theme-toggle:active {
-    transform: scale(0.98); /* Slightly scale down on click */
+    transform: scale(0.98);
 }

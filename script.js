@@ -8,12 +8,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const sortSelect = document.getElementById('sort');
     const loadMoreButton = document.getElementById('load-more');
     const allLoadedText = document.getElementById('all-loaded');
+    const languagesContainer = document.getElementById('languages');
     const username = 'bainash10'; // Replace with your GitHub username
 
     let allRepos = [];
     let filteredRepos = [];
     let currentBatch = 0;
     const batchSize = 6;
+    let majorLanguages = [];
 
     themeToggle.addEventListener('click', () => {
         document.body.classList.toggle('dark');
@@ -33,10 +35,13 @@ document.addEventListener('DOMContentLoaded', () => {
         displayNextBatch();
     });
 
-    categoriesContainer.addEventListener('click', (e) => {
-        if (e.target.classList.contains('category')) {
-            const techStack = e.target.textContent.split(':')[0];
-            filteredRepos = allRepos.filter(repo => Object.keys(repo.languages).includes(techStack));
+    languagesContainer.addEventListener('change', (e) => {
+        if (e.target.tagName === 'INPUT' && e.target.type === 'checkbox') {
+            const selectedLanguages = Array.from(languagesContainer.querySelectorAll('input:checked')).map(input => input.value);
+            filteredRepos = allRepos.filter(repo => {
+                const repoLanguages = Object.keys(repo.languages);
+                return selectedLanguages.every(lang => repoLanguages.includes(lang));
+            });
             displayRepos(filteredRepos);
         }
     });
@@ -63,6 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 repo.commitsCount = commitsCount;
                 return repo;
             }));
+            determineMajorLanguages(allRepos);
             filteredRepos = allRepos;
             displayRepos(filteredRepos);
             displayCategories(allRepos);
@@ -99,6 +105,71 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error fetching commits:', error);
             return 0;
         }
+    }
+
+    function determineMajorLanguages(repos) {
+        const languageCounts = {};
+
+        repos.forEach(repo => {
+            const repoLanguages = Object.keys(repo.languages);
+            repoLanguages.forEach(lang => {
+                if (!languageCounts[lang]) {
+                    languageCounts[lang] = 0;
+                }
+                languageCounts[lang]++;
+            });
+        });
+
+        // Sort languages by count and select top ones
+        const sortedLanguages = Object.keys(languageCounts).sort((a, b) => languageCounts[b] - languageCounts[a]);
+        majorLanguages = sortedLanguages.slice(0, 10); // Increase the number based on your preference
+
+        displayCategories(repos);
+        displayLanguages(majorLanguages);
+    }
+
+    function displayCategories(repos) {
+        const categories = {};
+
+        repos.forEach(repo => {
+            const repoLanguages = Object.keys(repo.languages);
+            const majorUsedLanguages = repoLanguages.filter(lang => majorLanguages.includes(lang));
+
+            if (majorUsedLanguages.length > 0) {
+                majorUsedLanguages.forEach(lang => {
+                    if (!categories[lang]) {
+                        categories[lang] = 0;
+                    }
+                    categories[lang]++;
+                });
+            } else {
+                if (!categories['Unknown']) {
+                    categories['Unknown'] = 0;
+                }
+                categories['Unknown']++;
+            }
+        });
+
+        categoriesContainer.innerHTML = '';
+        Object.keys(categories).forEach(category => {
+            const categoryDiv = document.createElement('div');
+            categoryDiv.classList.add('category');
+            categoryDiv.textContent = `${category}: ${categories[category]}`;
+            categoriesContainer.appendChild(categoryDiv);
+        });
+    }
+
+    function displayLanguages(majorLanguages) {
+        languagesContainer.innerHTML = '';
+        majorLanguages.forEach(language => {
+            const languageDiv = document.createElement('div');
+            languageDiv.classList.add('language-checkbox');
+            languageDiv.innerHTML = `
+                <input type="checkbox" id="${language}" value="${language}">
+                <label for="${language}">${language}</label>
+            `;
+            languagesContainer.appendChild(languageDiv);
+        });
     }
 
     function displayRepos(repos) {
@@ -158,25 +229,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function displayCategories(repos) {
-        const categories = {};
-        repos.forEach(repo => {
-            const techStack = Object.keys(repo.languages).join(', ') || 'Unknown';
-            if (!categories[techStack]) {
-                categories[techStack] = 0;
-            }
-            categories[techStack]++;
-        });
-
-        categoriesContainer.innerHTML = '';
-        Object.keys(categories).forEach(category => {
-            const categoryDiv = document.createElement('div');
-            categoryDiv.classList.add('category');
-            categoryDiv.textContent = `${category}: ${categories[category]}`;
-            categoriesContainer.appendChild(categoryDiv);
-        });
-    }
-
     function updateTotalReposCount(count) {
         const totalReposCountElement = document.getElementById('total-repos-count'); // Ensure this ID matches
         if (totalReposCountElement) {
@@ -185,7 +237,6 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Element with ID "total-repos-count" not found.');
         }
     }
-    
 
     function sortAndDisplayRepos(criteria) {
         if (criteria === 'recent') {
@@ -196,6 +247,8 @@ document.addEventListener('DOMContentLoaded', () => {
         displayRepos(filteredRepos);
     }
 
+    // Set default sorting to Recently Added
+    sortSelect.value = 'recent';
+
     fetchRepos();
 });
-
