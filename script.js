@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
             determineMajorLanguages(allRepos);
             filteredRepos = allRepos;
             displayRepos(filteredRepos);
-            displayCategories(allRepos);
+            displayLanguages(majorLanguages);
             updateTotalReposCount(allRepos.length);
         } catch (error) {
             console.error('Error fetching repos:', error);
@@ -122,41 +122,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Sort languages by count and select top ones
         const sortedLanguages = Object.keys(languageCounts).sort((a, b) => languageCounts[b] - languageCounts[a]);
-        majorLanguages = sortedLanguages.slice(0, 10); // Increase the number based on your preference
+        majorLanguages = sortedLanguages; // Show all major languages
 
-        displayCategories(repos);
         displayLanguages(majorLanguages);
-    }
-
-    function displayCategories(repos) {
-        const categories = {};
-
-        repos.forEach(repo => {
-            const repoLanguages = Object.keys(repo.languages);
-            const majorUsedLanguages = repoLanguages.filter(lang => majorLanguages.includes(lang));
-
-            if (majorUsedLanguages.length > 0) {
-                majorUsedLanguages.forEach(lang => {
-                    if (!categories[lang]) {
-                        categories[lang] = 0;
-                    }
-                    categories[lang]++;
-                });
-            } else {
-                if (!categories['Unknown']) {
-                    categories['Unknown'] = 0;
-                }
-                categories['Unknown']++;
-            }
-        });
-
-        categoriesContainer.innerHTML = '';
-        Object.keys(categories).forEach(category => {
-            const categoryDiv = document.createElement('div');
-            categoryDiv.classList.add('category');
-            categoryDiv.textContent = `${category}: ${categories[category]}`;
-            categoriesContainer.appendChild(categoryDiv);
-        });
     }
 
     function displayLanguages(majorLanguages) {
@@ -247,8 +215,6 @@ document.addEventListener('DOMContentLoaded', () => {
         displayRepos(filteredRepos);
     }
 
-    // Set default sorting to Recently Added
-    sortSelect.value = 'recent';
-
+    // Initialize fetching repos
     fetchRepos();
 });
