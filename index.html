@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Repo Explorer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>GitHub Repo Explorer</h1>
+            <button id="theme-toggle">Toggle Theme</button>
+            <input type="text" id="search" placeholder="Search projects...">
+            <select id="sort">
+                <option value="recent">Recently Added</option>
+                <option value="alphabetical">Alphabetically</option>
+                <option value="techstack">By Tech Stack</option>
+            </select>
+        </header>
+        <div class="categories" id="categories"></div>
+        <div class="repo-container" id="repo-container"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
