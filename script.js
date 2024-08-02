@@ -191,7 +191,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const sourceCode = document.createElement('div');
             sourceCode.classList.add('source-code');
             sourceCode.innerHTML = `
-                <p class="description">${repo.description || 'No description available'}</p>
                 <a href="${repo.html_url}" target="_blank">View Source Code</a>
             `;
     
@@ -212,6 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
             allLoadedText.classList.add('hidden');
         }
     }
+    
 
     function updateTotalReposCount(count) {
         const totalReposCountElement = document.getElementById('total-repos-count'); // Ensure this ID matches
